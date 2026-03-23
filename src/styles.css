@@ -1,0 +1,542 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --gold: #D4AF37;
+  --dark: #1a1a1a;
+  --bg-soft: #fbfbfb;
+  --white: #ffffff;
+  --border: #e0e0e0;
+  --shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-soft);
+  color: var(--dark);
+}
+
+/* --- NAVBAR MEJORADO --- */
+/* --- NAVBAR (CORREGIDO: ADIÓS AL GRIS) --- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* Cambiamos el gris por un blanco premium con ligera transparencia */
+  background: rgba(255, 255, 255, 0.98) !important; 
+  
+  /* Un efecto de desenfoque elegante para el fondo al hacer scroll */
+  backdrop-filter: blur(10px);
+  
+  /* Borde inferior dorado que conecta con el logo */
+  border-bottom: 3px solid #D4AF37 !important; 
+  
+  padding: 10px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilo para que los links no se vean azules ni pegados */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none !important;
+  color: #2e242b !important; /* Negro lujoso */
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #D4AF37 !important; /* Cambia a dorado al pasar el mouse */
+}
+
+/* El bloque del nombre y logo */
+.brand-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.brand-container h1 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.3rem !important;
+  color: #1a1a1a !important;
+  margin: 0 !important;
+}
+
+.brand-container span {
+  color: #D4AF37 !important;
+  font-size: 0.7rem !important;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* =========================================================
+   --- BANNER HERO (FUCSIA CON LETRAS DORADAS QUE RESALTAN) ---
+   Efecto de "Pop" y "Glow" para que el texto sea el protagonista.
+   ========================================================= */
+
+.hero-section {
+  /* Fondo Rosa Fucsia Potente (mantenemos tu color) */
+  background: #FF007F !important; 
+  background: linear-gradient(135deg, #FF1493 0%, #D81B60 100%) !important;
+  
+  /* Mantenemos las dimensiones extra grandes */
+  width: 100% !important;
+  height: 380px !important; 
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  
+  /* Borde dorado de lujo */
+  border-bottom: 5px solid #D4AF37 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- TÍTULO PRINCIPAL CON EFECTO "POP" --- */
+.hero-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 5.5rem !important; /* Mantenemos el tamaño gigante */
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  letter-spacing: -1px;
+
+  /* 1. Color Dorado Base */
+  color: #D4AF37 !important; 
+
+  /* =========================================================
+     --- 2. LA MAGIA DEL RESALTE (EFECTO GLOW MULTICAPA) ---
+     Estas sombras crean un efecto de relieve y resplandor.
+     ========================================================= */
+  text-shadow: 
+    /* Sombra 1: Borde nítido oscuro para dar relieve y separación (Pop) */
+    3px 3px 0px rgba(0,0,0,0.3), 
+    
+    /* Sombra 2: Resplandor Dorado Suave (Glow cercano) */
+    0 0 10px rgba(212, 175, 55, 0.6), 
+    
+    /* Sombra 3: Resplandor Dorado Intenso (Glow lejano) */
+    0 0 20px rgba(212, 175, 55, 0.4),
+    
+    /* Sombra 4: Sombra proyectada suave para profundidad final */
+    5px 5px 15px rgba(0,0,0,0.2) !important;
+}
+
+/* --- SUBTÍTULO MÁS NOTORIO (También con sutil resalte) --- */
+.hero-subtitle {
+  color: #ffffff !important; /* Blanco puro */
+  font-size: 1.4rem !important;
+  letter-spacing: 6px !important;
+  text-transform: uppercase !important;
+  margin-top: 20px !important;
+  font-weight: 400;
+  opacity: 1 !important;
+  
+  /* Resalte sutil para el subtítulo */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+}
+
+/* Ajuste para celulares */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.5rem !important;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.3), 0 0 10px rgba(212, 175, 55, 0.5) !important;
+  }
+  .hero-subtitle {
+    font-size: 1rem !important;
+    letter-spacing: 3px !important;
+  }
+}
+
+/* --- FILTROS (BOX DE LUJO) --- */
+.filter-wrapper {
+  background: white;
+  margin: -40px auto 30px;
+  max-width: 1000px;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+  border: 1px solid var(--gold);
+}
+
+.filter-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  background: #f9f9f9;
+  border: 1px solid var(--border);
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background: var(--dark);
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* --- GRID Y CARDS --- */
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+}
+
+.product-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+
+.product-card-image { height: 250px; overflow: hidden; background: #eee; }
+.product-card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-card-body { padding: 20px; flex-grow: 1; }
+.product-price { font-size: 1.4rem; font-weight: 700; color: var(--dark); }
+
+.btn-detail {
+  background: var(--dark);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 8px 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.btn-detail:hover { background: var(--gold); color: var(--dark); }
+
+/* --- ESTILOS DEL BUSCADOR --- */
+.search-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input-group {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px; /* Para que no sea infinitamente ancho */
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.btn-search {
+  background: var(--dark) !important;
+  color: var(--gold) !important;
+  border: 1px solid var(--gold) !important;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-reset {
+  background: white !important;
+  color: var(--muted) !important;
+  border: 1px solid var(--border) !important;
+  padding: 10px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.btn-search:hover {
+  background: var(--gold) !important;
+  color: var(--dark) !important;
+}
+
+/* --- ADMINISTRACIÓN (Categorías y Productos) --- */
+
+.admin-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.admin-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--dark);
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 10px;
+}
+
+/* Formulario de Agregar */
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  background: var(--bg-soft);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.admin-form input, .admin-form select, .admin-form textarea {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.admin-form textarea { grid-column: 1 / -1; } /* Que la descripción use todo el ancho */
+
+/* Botones de Acción */
+.btn-admin {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-add { background: var(--dark); color: var(--gold); border: 1px solid var(--gold); }
+.btn-add:hover { background: var(--gold); color: var(--dark); }
+
+.btn-edit { background: #f0f0f0; color: #555; margin-right: 5px; }
+.btn-edit:hover { background: #e0e0e0; }
+
+.btn-delete { background: #ffebee; color: #c62828; }
+.btn-delete:hover { background: #c62828; color: white; }
+
+/* Lista de Elementos */
+.admin-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: 0.3s;
+}
+
+.admin-list-item:hover { background: var(--pink-50); }
+
+.admin-item-info h4 { margin: 0; color: var(--dark); }
+.admin-item-info p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+
+/* --- PAGINA DE DETALLE DEL PRODUCTO (Look Premium) --- */
+
+.product-detail-wrapper {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.product-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas: Imagen y Detalles */
+  gap: 40px;
+  padding: 40px;
+}
+
+/* Columna de la Imagen */
+.product-detail-image {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fbfbfb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eee;
+}
+
+.product-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Muestra la imagen completa sin recortar */
+  padding: 20px;
+}
+
+/* Columna de Información */
+.product-detail-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detail-category {
+  color: #C5A059; /* Dorado Antique */
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.detail-name {
+  font-family: 'Playfair Display', serif; /* Fuente elegante */
+  font-size: 2.8rem;
+  color: #1a1a1a; /* Negro Lujoso */
+  line-height: 1.2;
+  margin-bottom: 5px;
+}
+
+.detail-brand {
+  font-size: 1rem;
+  color: #666; /* Gris Muted */
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+
+.detail-description {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 35px;
+  padding-right: 20px;
+}
+
+/* Precio y Acciones */
+.detail-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+}
+
+.detail-price {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Botón Volver (Ghost) */
+.btn-back {
+  background: white;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-back:hover {
+  background: #fbfbfb;
+  color: #1a1a1a;
+  border-color: #ccc;
+}
+
+/* Botón WhatsApp (Primary - Negro y Dorado) */
+.btn-whatsapp-detail {
+  background: #1a1a1a; /* Negro Lujoso */
+  color: #D4AF37; /* Dorado del Logo */
+  border: 1px solid #D4AF37;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
+.btn-whatsapp-detail:hover {
+  background: #D4AF37; /* Fondo Dorado */
+  color: #1a1a1a; /* Texto Negro */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Ajustes para Móviles */
+@media (max-width: 768px) {
+  .product-detail-container {
+    grid-template-columns: 1fr; /* Una columna en móvil */
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  .product-detail-image {
+    max-height: 300px;
+  }
+  
+  .detail-name {
+    font-size: 2rem;
+  }
+  
+  .detail-footer {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}
