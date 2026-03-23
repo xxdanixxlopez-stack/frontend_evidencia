@@ -1,19 +1,18 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useCart } from "../context/CartContext"; // 👈 NUEVO: Importamos el cerebro del carrito
 
 export default function ProductCard({ product }) {
   const [imgOk, setImgOk] = useState(true);
+  
+  // 👈 NUEVO: Traemos la función para agregar al carrito
+  const { addToCart } = useCart(); 
 
   // Formateador de precio para que se vea: $ 1,500.00
   const formatter = new Intl.NumberFormat('es-MX', {
     style: 'currency',
     currency: 'MXN',
   });
-
-  // Texto para el mensaje de WhatsApp
-  const whatsappMessage = encodeURIComponent(
-    `Hola! Me interesa este producto de The House of Beauty:\n\n*Producto:* ${product.name}\n*Precio:* ${formatter.format(product.price)}\n\n¿Tienen disponibilidad?`
-  );
 
   return (
     <article className="product-card">
@@ -60,22 +59,23 @@ export default function ProductCard({ product }) {
             <span className="product-price">{formatter.format(product.price)}</span>
           </div>
           
-          <div className="action-buttons">
+          <div className="action-buttons" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link className="btn-view" to={`/producto/${product._id}`}>
               Detalles
             </Link>
             
-            <a 
-              href={`https://wa.me/521XXXXXXXXXX?text=${whatsappMessage}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="btn-whatsapp"
-              title="Pedir por WhatsApp"
+            {/* 👈 NUEVO: Botón de Agregar al Carrito */}
+            <button 
+              onClick={() => addToCart(product)}
+              className="btn-whatsapp" // Mantenemos tu clase para que conserve el diseño
+              title="Añadir al carrito"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#D4AF37', display: 'flex' }}
             >
-              <svg viewBox="0 0 24 24" width="20" height="20">
-                <path fill="currentColor" d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.766-5.764-5.766zm3.376 8.21c-.19.533-.961.914-1.326.966-.365.053-.67.107-1.127-.107-.457-.214-1.953-.721-2.975-1.631-1.022-.91-1.678-2.022-1.868-2.555-.19-.533-.02-.821.147-1.011.167-.19.333-.334.5-.5.167-.167.222-.278.333-.445.111-.167.056-.334-.028-.5-.084-.167-.75-1.808-.944-2.279-.194-.471-.389-.417-.5-.417h-.417c-.167 0-.444.056-.666.278-.222.222-.889.889-.889 2.168 0 1.279.944 2.5 1.083 2.668.139.167 1.805 2.724 4.388 3.834.615.263 1.094.421 1.468.539.617.196 1.178.168 1.621.102.494-.074 1.528-.625 1.741-1.229.213-.604.213-1.127.149-1.229-.064-.102-.234-.167-.5-.302z"/>
+              {/* SVG de un Carrito de Compras (mismo tamaño que el tuyo) */}
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
               </svg>
-            </a>
+            </button>
           </div>
         </footer>
       </div>
