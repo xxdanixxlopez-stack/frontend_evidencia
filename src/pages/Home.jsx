@@ -11,30 +11,33 @@ export default function Home() {
   const [q, setQ] = useState("");
   const [msg, setMsg] = useState("");
 
-  // --- PLAN B: Extraer categorías únicas de los productos ---
   async function loadInitialData() {
     setMsg("");
     try {
       const pRes = await api.get("/api/products");
       const productosData = pRes.data;
 
-      // 1. Sacamos los nombres de las categorías de los productos
-      // Usamos .map para obtenerlas y new Set para que NO se repitan
-      const nombresCategorias = [...new Set(productosData.map(p => {
-        // Buscamos el nombre de la categoría sin importar cómo venga de la BD
-        if (typeof p.category === 'object') {
-          return p.category.Nombre || p.category.name || "General";
-        }
-        return p.category || "General";
-      }))];
+      // --- LOGICA DE LIMPIEZA EXTREMA ---
+      // 1. Extraemos los nombres de las categorías
+      const nombresCrudos = productosData.map(p => {
+        const nombreProd = p.name;
+        const nombreCat = typeof p.category === 'object' 
+          ? (p.category.Nombre || p.category.name) 
+          : p.category;
+        
+        // REGLA DE ORO: Si la categoría es igual al nombre del producto, es basura
+        // La marcamos como "General" para que no llene la pantalla
+        if (!nombreCat || nombreCat === nombreProd) return "General";
+        return nombreCat;
+      });
 
-      // 2. Convertimos esos nombres en objetos que el componente entienda
-      const categoriasLimpias = nombresCategorias.map((nombre, index) => ({
-        _id: nombre, // Usamos el nombre como ID para que el filtro funcione
+      // 2. Eliminamos duplicados con Set
+      const categoriasUnicas = [...new Set(nombresCrudos)].map(nombre => ({
+        _id: nombre,
         name: nombre
       }));
 
-      setCats(categoriasLimpias);
+      setCats(categoriasUnicas);
       setProducts(productosData);
     } catch (error) {
       console.error("Error al cargar datos:", error);
@@ -46,30 +49,27 @@ export default function Home() {
     loadInitialData();
   }, []);
 
-  // Filtrar por categoría seleccionada (Modificado para el Plan B)
   function filterByCategory(name) {
     setCategoryId(name);
     setQ(""); 
     setMsg("");
 
     if (!name) {
-      loadInitialData(); // Si es "Todas", recargamos todo
+      loadInitialData();
       return;
     }
 
-    // Filtramos localmente para que sea instantáneo y no falle con la API
     const filtrados = products.filter(p => {
       const catName = typeof p.category === 'object' 
         ? (p.category.Nombre || p.category.name) 
         : p.category;
-      return catName === name;
+      return catName === name || (!catName && name === "General");
     });
 
     setProducts(filtrados);
     if (filtrados.length === 0) setMsg("No hay productos en esta categoría.");
   }
 
-  // Función de búsqueda
   async function handleSearch(e) {
     e.preventDefault();
     if (!q.trim()) return;
@@ -90,7 +90,8 @@ export default function Home() {
   return (
     <main className="main-wrapper">
       <header className="hero-section">
-        <h1 className="hero-title">The House of Beauty</h1>
+        {/* SI VES "TEST", EL CODIGO SE ACTUALIZO CORRECTAMENTE */}
+        <h1 className="hero-title">The House of Beauty TEST</h1>
         <p className="hero-subtitle">Cosmética & Novedades de Alta Gama</p>
       </header>
 
