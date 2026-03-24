@@ -1,18 +1,21 @@
 import axios from "axios";
+import { getAuth } from "firebase/auth";
 
 export const api = axios.create({
-  // Asegúrate de que tu .env diga: VITE_SERVER_URL=http://localhost:5000
-  baseURL: import.meta.env.VITE_SERVER_URL 
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 api.interceptors.request.use(
   async (config) => {
-    // Busca el token que guardamos en el AuthContext
-    const token = localStorage.getItem("token");
-    if (token) {
-      // ✅ IMPORTANTE: El espacio después de 'Bearer '
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
+      const token = await currentUser.getIdToken(true);
       config.headers.Authorization = `Bearer ${token}`;
+      localStorage.setItem("token", token);
     }
+
     return config;
   },
   (error) => Promise.reject(error)

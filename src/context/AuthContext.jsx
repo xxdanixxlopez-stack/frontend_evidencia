@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 
-// Tu configuración de Firebase (mantenla como la tienes)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -26,9 +25,9 @@ export function AuthProvider({ children }) {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
-        const tokenValue = await u.getIdToken();
+        // ✅ getIdToken(true) fuerza renovación si está expirado
+        const tokenValue = await u.getIdToken(true);
         setToken(tokenValue);
-        // ✅ CRUCIAL: Guardar en el navegador
         localStorage.setItem("token", tokenValue);
       } else {
         setToken(null);
@@ -41,7 +40,7 @@ export function AuthProvider({ children }) {
   async function login() {
     try {
       const result = await signInWithPopup(auth, provider);
-      const tokenValue = await result.user.getIdToken();
+      const tokenValue = await result.user.getIdToken(true);
       setToken(tokenValue);
       localStorage.setItem("token", tokenValue);
     } catch (error) {
