@@ -3,15 +3,28 @@ import { createContext, useState, useContext, useEffect } from 'react';
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // Recuperamos el carrito guardado para que no se borre al refrescar
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart_beauty');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const [cart, setCart] = useState([]);
 
-  // Guardamos el carrito en la memoria cada vez que cambia
+  // Cargar carrito al iniciar
   useEffect(() => {
-    localStorage.setItem('cart_beauty', JSON.stringify(cart));
+    try {
+      const savedCart = localStorage.getItem('cart_beauty');
+      if (savedCart) {
+        setCart(JSON.parse(savedCart));
+      }
+    } catch (e) {
+      console.error("Error leyendo carrito:", e);
+      setCart([]);
+    }
+  }, []);
+
+  // Guardar carrito cada vez que cambia
+  useEffect(() => {
+    try {
+      localStorage.setItem('cart_beauty', JSON.stringify(cart));
+    } catch (e) {
+      console.error("Error guardando carrito:", e);
+    }
   }, [cart]);
 
   const addToCart = (product) => {
@@ -32,7 +45,6 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCart([]);
 
-  // Calcula el total automáticamente
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
