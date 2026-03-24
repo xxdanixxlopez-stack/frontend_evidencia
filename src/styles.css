@@ -17,21 +17,13 @@ body {
   color: var(--dark);
 }
 
-
 .nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  
-  /* Cambiamos el gris por un blanco premium con ligera transparencia */
   background: rgba(255, 255, 255, 0.98) !important; 
-  
-  /* Un efecto de desenfoque elegante para el fondo al hacer scroll */
   backdrop-filter: blur(10px);
-  
-  /* Borde inferior dorado que conecta con el logo */
   border-bottom: 3px solid #D4AF37 !important; 
-  
   padding: 10px 0;
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
@@ -45,7 +37,6 @@ body {
   align-items: center;
 }
 
-/* Estilo para que los links no se vean azules ni pegados */
 .nav-links {
   display: flex;
   gap: 30px;
@@ -54,7 +45,7 @@ body {
 
 .nav-links a {
   text-decoration: none !important;
-  color: #2e242b !important; /* Negro lujoso */
+  color: #2e242b !important;
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -63,10 +54,9 @@ body {
 }
 
 .nav-links a:hover {
-  color: #D4AF37 !important; /* Cambia a dorado al pasar el mouse */
+  color: #D4AF37 !important;
 }
 
-/* El bloque del nombre y logo */
 .brand-container {
   display: flex;
   flex-direction: column;
@@ -88,17 +78,9 @@ body {
   letter-spacing: 1.5px;
 }
 
-/* =========================================================
-   --- BANNER HERO (FUCSIA CON LETRAS DORADAS QUE RESALTAN) ---
-   Efecto de "Pop" y "Glow" para que el texto sea el protagonista.
-   ========================================================= */
-
 .hero-section {
-  /* Fondo Rosa Fucsia Potente (mantenemos tu color) */
   background: #FF007F !important; 
   background: linear-gradient(135deg, #FF1493 0%, #D81B60 100%) !important;
-  
-  /* Mantenemos las dimensiones extra grandes */
   width: 100% !important;
   height: 380px !important; 
   display: flex !important;
@@ -106,58 +88,37 @@ body {
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  
-  /* Borde dorado de lujo */
   border-bottom: 5px solid #D4AF37 !important;
   position: relative;
   overflow: hidden;
 }
 
-/* --- TÍTULO PRINCIPAL CON EFECTO "POP" --- */
 .hero-title {
   font-family: 'Playfair Display', serif !important;
-  font-size: 5.5rem !important; /* Mantenemos el tamaño gigante */
+  font-size: 5.5rem !important;
   font-weight: 800 !important;
   line-height: 1 !important;
   margin: 0 !important;
   letter-spacing: -1px;
-
-  /* 1. Color Dorado Base */
   color: #D4AF37 !important; 
-
-  /* =========================================================
-     --- 2. LA MAGIA DEL RESALTE (EFECTO GLOW MULTICAPA) ---
-     Estas sombras crean un efecto de relieve y resplandor.
-     ========================================================= */
   text-shadow: 
-    /* Sombra 1: Borde nítido oscuro para dar relieve y separación (Pop) */
     3px 3px 0px rgba(0,0,0,0.3), 
-    
-    /* Sombra 2: Resplandor Dorado Suave (Glow cercano) */
     0 0 10px rgba(212, 175, 55, 0.6), 
-    
-    /* Sombra 3: Resplandor Dorado Intenso (Glow lejano) */
     0 0 20px rgba(212, 175, 55, 0.4),
-    
-    /* Sombra 4: Sombra proyectada suave para profundidad final */
     5px 5px 15px rgba(0,0,0,0.2) !important;
 }
 
-/* --- SUBTÍTULO MÁS NOTORIO (También con sutil resalte) --- */
 .hero-subtitle {
-  color: #ffffff !important; /* Blanco puro */
+  color: #ffffff !important;
   font-size: 1.4rem !important;
   letter-spacing: 6px !important;
   text-transform: uppercase !important;
   margin-top: 20px !important;
   font-weight: 400;
   opacity: 1 !important;
-  
-  /* Resalte sutil para el subtítulo */
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
 }
 
-/* Ajuste para celulares */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 3.5rem !important;
@@ -169,7 +130,6 @@ body {
   }
 }
 
-/* --- FILTROS (BOX DE LUJO) --- */
 .filter-wrapper {
   background: white;
   margin: -40px auto 30px;
@@ -204,7 +164,6 @@ body {
   border-color: var(--gold);
 }
 
-/* --- GRID Y CARDS --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
 .product-grid {
@@ -229,6 +188,100 @@ body {
 .product-card-image { height: 250px; overflow: hidden; background: #eee; }
 .product-card-image img { width: 100%; height: 100%; object-fit: cover; }
 
+.product-card-no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+.product-card-info {
+  padding: 15px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+
+.product-card-category {
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.product-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--dark);
+  margin: 0;
+}
+
+.product-card-brand {
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 300;
+  margin: 0;
+}
+
+.product-card-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 5px 0;
+}
+
+.product-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.btn-add-cart {
+  flex: 1;
+  background: var(--dark);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-add-cart:hover {
+  background: var(--gold);
+  color: var(--dark);
+}
+
+.btn-view-detail {
+  background: white;
+  color: #666;
+  border: 1px solid var(--border);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: 0.3s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.btn-view-detail:hover {
+  background: #f5f5f5;
+  color: var(--dark);
+  border-color: #ccc;
+}
+
 .product-card-body { padding: 20px; flex-grow: 1; }
 .product-price { font-size: 1.4rem; font-weight: 700; color: var(--dark); }
 
@@ -245,7 +298,6 @@ body {
 
 .btn-detail:hover { background: var(--gold); color: var(--dark); }
 
-/* --- ESTILOS DEL BUSCADOR --- */
 .search-wrapper {
   width: 100%;
   display: flex;
@@ -257,7 +309,7 @@ body {
   display: flex;
   gap: 10px;
   width: 100%;
-  max-width: 600px; /* Para que no sea infinitamente ancho */
+  max-width: 600px;
 }
 
 .search-input {
@@ -299,8 +351,6 @@ body {
   color: var(--dark) !important;
 }
 
-/* --- ADMINISTRACIÓN (Categorías y Productos) --- */
-
 .admin-container {
   max-width: 1000px;
   margin: 40px auto;
@@ -319,7 +369,6 @@ body {
   padding-bottom: 10px;
 }
 
-/* Formulario de Agregar */
 .admin-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -338,9 +387,8 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.admin-form textarea { grid-column: 1 / -1; } /* Que la descripción use todo el ancho */
+.admin-form textarea { grid-column: 1 / -1; }
 
-/* Botones de Acción */
 .btn-admin {
   padding: 10px 20px;
   border-radius: 10px;
@@ -359,7 +407,9 @@ body {
 .btn-delete { background: #ffebee; color: #c62828; }
 .btn-delete:hover { background: #c62828; color: white; }
 
-/* Lista de Elementos */
+.btn-ghost { background: white; color: #666; border: 1px solid var(--border); }
+.btn-ghost:hover { background: #f5f5f5; }
+
 .admin-list-item {
   display: flex;
   justify-content: space-between;
@@ -369,12 +419,12 @@ body {
   transition: 0.3s;
 }
 
-.admin-list-item:hover { background: var(--pink-50); }
+.admin-list-item:hover { background: #fafafa; }
 
 .admin-item-info h4 { margin: 0; color: var(--dark); }
-.admin-item-info p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.admin-item-info p { margin: 0; font-size: 0.85rem; color: #888; }
 
-/* --- PAGINA DE DETALLE DEL PRODUCTO (Look Premium) --- */
+.action-buttons { display: flex; gap: 8px; }
 
 .product-detail-wrapper {
   background: white;
@@ -387,12 +437,11 @@ body {
 
 .product-detail-container {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas: Imagen y Detalles */
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
   padding: 40px;
 }
 
-/* Columna de la Imagen */
 .product-detail-image {
   width: 100%;
   height: 100%;
@@ -409,11 +458,10 @@ body {
 .product-detail-image img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Muestra la imagen completa sin recortar */
+  object-fit: contain;
   padding: 20px;
 }
 
-/* Columna de Información */
 .product-detail-info {
   display: flex;
   flex-direction: column;
@@ -421,7 +469,7 @@ body {
 }
 
 .detail-category {
-  color: #C5A059; /* Dorado Antique */
+  color: #C5A059;
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -430,16 +478,16 @@ body {
 }
 
 .detail-name {
-  font-family: 'Playfair Display', serif; /* Fuente elegante */
+  font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
-  color: #1a1a1a; /* Negro Lujoso */
+  color: #1a1a1a;
   line-height: 1.2;
   margin-bottom: 5px;
 }
 
 .detail-brand {
   font-size: 1rem;
-  color: #666; /* Gris Muted */
+  color: #666;
   margin-bottom: 25px;
   font-weight: 300;
 }
@@ -452,7 +500,6 @@ body {
   padding-right: 20px;
 }
 
-/* Precio y Acciones */
 .detail-footer {
   display: flex;
   align-items: center;
@@ -474,7 +521,6 @@ body {
   align-items: center;
 }
 
-/* Botón Volver (Ghost) */
 .btn-back {
   background: white;
   color: #666;
@@ -493,10 +539,9 @@ body {
   border-color: #ccc;
 }
 
-/* Botón WhatsApp (Primary - Negro y Dorado) */
 .btn-whatsapp-detail {
-  background: #1a1a1a; /* Negro Lujoso */
-  color: #D4AF37; /* Dorado del Logo */
+  background: #1a1a1a;
+  color: #D4AF37;
   border: 1px solid #D4AF37;
   padding: 12px 25px;
   border-radius: 12px;
@@ -511,16 +556,25 @@ body {
 }
 
 .btn-whatsapp-detail:hover {
-  background: #D4AF37; /* Fondo Dorado */
-  color: #1a1a1a; /* Texto Negro */
+  background: #D4AF37;
+  color: #1a1a1a;
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
 }
 
-/* Ajustes para Móviles */
+.toast {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .product-detail-container {
-    grid-template-columns: 1fr; /* Una columna en móvil */
+    grid-template-columns: 1fr;
     padding: 20px;
     gap: 20px;
   }
@@ -537,5 +591,22 @@ body {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+  }
+
+  .product-card-image {
+    height: 180px;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
   }
 }
