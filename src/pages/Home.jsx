@@ -43,10 +43,15 @@ export default function Home() {
       return;
     }
 
+    const catSeleccionada = cats.find(c => c._id === id);
+    if (!catSeleccionada) return;
+
     const filtrados = allProducts.filter((p) => {
       const cat = p.category;
-      const catId = typeof cat === "object" && cat !== null ? cat._id : cat;
-      return catId === id;
+      const catName = typeof cat === "object" && cat !== null
+        ? (cat.name || cat.Nombre || "")
+        : (cat || "");
+      return catName.toLowerCase() === catSeleccionada.name.toLowerCase();
     });
 
     setProducts(filtrados);
@@ -74,8 +79,8 @@ export default function Home() {
         const nombre = (p.name || p.nombre || "").toLowerCase();
         const descripcion = (p.description || p.descripcion || "").toLowerCase();
         const cat = p.category;
-        const categoria = typeof cat === "object" && cat !== null 
-          ? (cat.name || "").toLowerCase() 
+        const categoria = typeof cat === "object" && cat !== null
+          ? (cat.name || cat.Nombre || "").toLowerCase()
           : (cat || "").toLowerCase();
 
         return (
