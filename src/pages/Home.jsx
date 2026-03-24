@@ -19,7 +19,16 @@ export default function Home() {
         api.get("/api/categories"),
         api.get("/api/products")
       ]);
-      setCats(cRes.data);
+
+      // --- AJUSTE PARA DANIEL: Mapeo de categorías desde MongoDB ---
+      // Vi en tu captura que el campo se llama "Nombre" (con N mayúscula)
+      // Lo convertimos a "name" para que el componente lo reconozca
+      const categoriasLimpias = cRes.data.map(cat => ({
+        ...cat,
+        name: cat.Nombre || cat.name || "Sin nombre" 
+      }));
+
+      setCats(categoriasLimpias);
       setProducts(pRes.data);
     } catch (error) {
       console.error("Error al cargar datos:", error);
