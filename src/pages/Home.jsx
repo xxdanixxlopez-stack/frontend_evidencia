@@ -12,18 +12,9 @@ export default function Home() {
   const [q, setQ] = useState("");
   const [msg, setMsg] = useState("");
 
-  function getCategoryName(product) {
-    const cat = product.categoria ?? product.category;
-    if (typeof cat === "object" && cat !== null) {
-      return (cat.Nombre || cat.name || "").trim();
-    }
-    return (cat || "").trim();
-  }
-
   async function loadInitialData() {
     setMsg("");
     try {
-      // ✅ Carga productos Y categorías por separado
       const [pRes, cRes] = await Promise.all([
         api.get("/api/products"),
         api.get("/api/categories")
@@ -31,7 +22,7 @@ export default function Home() {
 
       setAllProducts(pRes.data);
       setProducts(pRes.data);
-      setCats(cRes.data); // ✅ Categorías reales desde la BD
+      setCats(cRes.data);
     } catch (error) {
       console.error("Error al cargar datos:", error);
       setMsg("Error de conexión con el servidor.");
@@ -42,19 +33,20 @@ export default function Home() {
     loadInitialData();
   }, []);
 
-  function filterByCategory(name) {
-    setCategoryId(name);
+  function filterByCategory(id) {
+    setCategoryId(id);
     setQ("");
     setMsg("");
 
-    if (!name) {
+    if (!id) {
       setProducts(allProducts);
       return;
     }
 
     const filtrados = allProducts.filter((p) => {
-      const catName = getCategoryName(p);
-      return catName.toLowerCase() === name.toLowerCase();
+      const cat = p.category;
+      const catId = typeof cat === "object" && cat !== null ? cat._id : cat;
+      return catId === id;
     });
 
     setProducts(filtrados);
@@ -81,7 +73,10 @@ export default function Home() {
       const filtrados = allProducts.filter((p) => {
         const nombre = (p.name || p.nombre || "").toLowerCase();
         const descripcion = (p.description || p.descripcion || "").toLowerCase();
-        const categoria = getCategoryName(p).toLowerCase();
+        const cat = p.category;
+        const categoria = typeof cat === "object" && cat !== null 
+          ? (cat.name || "").toLowerCase() 
+          : (cat || "").toLowerCase();
 
         return (
           nombre.includes(texto) ||
