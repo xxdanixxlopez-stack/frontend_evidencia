@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../api/api';
 
 export default function ProductDetail() {
-  const { id } = useParams(); // Obtenemos el ID de la URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,6 @@ export default function ProductDetail() {
     loadProduct();
   }, [id]);
 
-  // Formateador de precio (ej: $1,500.00)
   const formatter = new Intl.NumberFormat('es-MX', {
     style: 'currency',
     currency: 'MXN',
@@ -45,7 +44,6 @@ export default function ProductDetail() {
   
   if (!product) return null;
 
-  // Texto para el mensaje de WhatsApp automático
   const whatsappMessage = encodeURIComponent(
     `¡Hola! Me interesa este producto de *The House of Beauty*:\n\n*Producto:* ${product.name}\n*Precio:* ${formatter.format(product.price)}\n\n¿Tienen disponibilidad?`
   );
@@ -56,7 +54,6 @@ export default function ProductDetail() {
         <div className="product-detail-wrapper">
           <div className="product-detail-container">
             
-            {/* Columna Izquierda: Imagen */}
             <div className="product-detail-image">
               {product.imageUrl ? (
                 <img src={product.imageUrl} alt={product.name} loading="lazy" />
@@ -67,7 +64,6 @@ export default function ProductDetail() {
               )}
             </div>
 
-            {/* Columna Derecha: Información */}
             <div className="product-detail-info">
               <header>
                 <span className="detail-category">{product.category?.name || "General"}</span>
@@ -79,7 +75,6 @@ export default function ProductDetail() {
                 {product.description || "Este producto de alta gama no tiene descripción detallada disponible en este momento."}
               </p>
               
-              {/* Precio y Botones */}
               <footer className="detail-footer">
                 <span className="detail-price">{formatter.format(product.price)}</span>
                 
@@ -88,9 +83,8 @@ export default function ProductDetail() {
                     Volver
                   </Link>
                   
-                  {/* Reemplaza TU_NUMERO_WHATSAPP por tu número real con código de país */}
                   <a 
-                    href={`https://wa.me/TU_NUMERO_WHATSAPP?text=${whatsappMessage}`} 
+                    href={`https://wa.me/529621218419?text=${whatsappMessage}`} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="btn-whatsapp-detail"
