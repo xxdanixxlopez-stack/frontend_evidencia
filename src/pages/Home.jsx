@@ -11,25 +11,31 @@ export default function Home() {
   const [q, setQ] = useState("");
   const [msg, setMsg] = useState("");
 
-  // Función para cargar todos los productos y categorías
+  // --- PLAN B: Extraer categorías únicas de los productos ---
   async function loadInitialData() {
     setMsg("");
     try {
-      const [cRes, pRes] = await Promise.all([
-        api.get("/api/categories"),
-        api.get("/api/products")
-      ]);
+      const pRes = await api.get("/api/products");
+      const productosData = pRes.data;
 
-      // --- AJUSTE PARA DANIEL: Mapeo de categorías desde MongoDB ---
-      // Vi en tu captura que el campo se llama "Nombre" (con N mayúscula)
-      // Lo convertimos a "name" para que el componente lo reconozca
-      const categoriasLimpias = cRes.data.map(cat => ({
-        ...cat,
-        name: cat.Nombre || cat.name || "Sin nombre" 
+      // 1. Sacamos los nombres de las categorías de los productos
+      // Usamos .map para obtenerlas y new Set para que NO se repitan
+      const nombresCategorias = [...new Set(productosData.map(p => {
+        // Buscamos el nombre de la categoría sin importar cómo venga de la BD
+        if (typeof p.category === 'object') {
+          return p.category.Nombre || p.category.name || "General";
+        }
+        return p.category || "General";
+      }))];
+
+      // 2. Convertimos esos nombres en objetos que el componente entienda
+      const categoriasLimpias = nombresCategorias.map((nombre, index) => ({
+        _id: nombre, // Usamos el nombre como ID para que el filtro funcione
+        name: nombre
       }));
 
       setCats(categoriasLimpias);
-      setProducts(pRes.data);
+      setProducts(productosData);
     } catch (error) {
       console.error("Error al cargar datos:", error);
       setMsg("Error de conexión con el servidor.");
@@ -40,26 +46,34 @@ export default function Home() {
     loadInitialData();
   }, []);
 
-  // Filtrar por categoría seleccionada
-  async function filterByCategory(id) {
-    setCategoryId(id);
-    setQ(""); // Limpiamos la búsqueda al filtrar por categoría
+  // Filtrar por categoría seleccionada (Modificado para el Plan B)
+  function filterByCategory(name) {
+    setCategoryId(name);
+    setQ(""); 
     setMsg("");
-    const url = id ? `/api/products?categoryId=${id}` : "/api/products";
-    try {
-      const res = await api.get(url);
-      setProducts(res.data);
-      if (res.data.length === 0) setMsg("No hay productos en esta categoría.");
-    } catch (error) {
-      console.error("Error al filtrar:", error);
+
+    if (!name) {
+      loadInitialData(); // Si es "Todas", recargamos todo
+      return;
     }
+
+    // Filtramos localmente para que sea instantáneo y no falle con la API
+    const filtrados = products.filter(p => {
+      const catName = typeof p.category === 'object' 
+        ? (p.category.Nombre || p.category.name) 
+        : p.category;
+      return catName === name;
+    });
+
+    setProducts(filtrados);
+    if (filtrados.length === 0) setMsg("No hay productos en esta categoría.");
   }
 
   // Función de búsqueda
   async function handleSearch(e) {
     e.preventDefault();
     if (!q.trim()) return;
-    setCategoryId(""); // Limpiamos la categoría al buscar texto
+    setCategoryId(""); 
     try {
       const res = await api.get(`/api/search?q=${encodeURIComponent(q.trim())}`);
       setProducts(res.data);
@@ -75,14 +89,12 @@ export default function Home() {
 
   return (
     <main className="main-wrapper">
-      {/* Banner Principal con temática del logo */}
       <header className="hero-section">
         <h1 className="hero-title">The House of Beauty</h1>
         <p className="hero-subtitle">Cosmética & Novedades de Alta Gama</p>
       </header>
 
       <div className="container">
-        {/* Panel de Control: Buscador y Filtros juntos en la caja blanca */}
         <section className="filter-wrapper">
           <SearchBar 
             q={q} 
@@ -100,14 +112,8 @@ export default function Home() {
           />
         </section>
 
-        {/* Mensaje de estado (Cargando o Sin resultados) */}
-        {msg && (
-          <div className="toast">
-            {msg}
-          </div>
-        )}
+        {msg && <div className="toast">{msg}</div>}
 
-        {/* Rejilla de Productos corregida */}
         <div className="product-grid">
           {products.length > 0 ? (
             products.map((product) => (
