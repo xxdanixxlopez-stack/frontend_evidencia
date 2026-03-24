@@ -25,7 +25,6 @@ export function AuthProvider({ children }) {
     const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       if (u) {
-        // ✅ getIdToken(true) fuerza renovación si está expirado
         const tokenValue = await u.getIdToken(true);
         setToken(tokenValue);
         localStorage.setItem("token", tokenValue);

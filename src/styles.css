@@ -17,8 +17,7 @@ body {
   color: var(--dark);
 }
 
-/* --- NAVBAR MEJORADO --- */
-/* --- NAVBAR (CORREGIDO: ADIÓS AL GRIS) --- */
+
 .nav {
   position: sticky;
   top: 0;

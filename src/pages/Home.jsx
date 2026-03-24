@@ -14,35 +14,24 @@ export default function Home() {
 
   function getCategoryName(product) {
     const cat = product.categoria ?? product.category;
-
     if (typeof cat === "object" && cat !== null) {
       return (cat.Nombre || cat.name || "").trim();
     }
-
     return (cat || "").trim();
   }
 
   async function loadInitialData() {
     setMsg("");
     try {
-      const pRes = await api.get("/api/products");
-      const productosData = pRes.data;
+      // ✅ Carga productos Y categorías por separado
+      const [pRes, cRes] = await Promise.all([
+        api.get("/api/products"),
+        api.get("/api/categories")
+      ]);
 
-      setAllProducts(productosData);
-      setProducts(productosData);
-
-      const categoriasUnicas = [
-        ...new Set(
-          productosData
-            .map((p) => getCategoryName(p))
-            .filter((nombre) => nombre !== "")
-        ),
-      ].map((nombre) => ({
-        _id: nombre,
-        name: nombre,
-      }));
-
-      setCats(categoriasUnicas);
+      setAllProducts(pRes.data);
+      setProducts(pRes.data);
+      setCats(cRes.data); // ✅ Categorías reales desde la BD
     } catch (error) {
       console.error("Error al cargar datos:", error);
       setMsg("Error de conexión con el servidor.");
